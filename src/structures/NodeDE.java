@@ -1,14 +1,17 @@
 package structures;
 
+import model.Player;
+
 public class NodeDE {
 
 			
-	//Infromación
+	//Información
 	private int value;
 	
 	//Enlaces
 	private NodeDE previous;
 	private NodeDE next;
+	private Player player;
 	
 	public NodeDE(int value) {
 		this.value = value;

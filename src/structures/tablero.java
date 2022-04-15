@@ -1,8 +1,14 @@
 package structures;
 
-public class CircularLinkedList {
+public class tablero {
 	private NodeDE head;
 	private NodeDE tail;
+	
+	public tablero(){
+		head=null;
+		tail=null;
+		
+	}
 	
 	public void addFirst(NodeDE node) {
 		if(head == null) {
@@ -16,7 +22,7 @@ public class CircularLinkedList {
 			
 			
 			tail.setNext(head);
-			head.setPrevious(node);
+			head.setPrevious(tail);
 		}
 	}
 	
@@ -32,7 +38,7 @@ public class CircularLinkedList {
 			tail = node;
 			
 			tail.setNext(head);
-			head.setPrevious(node);
+			head.setPrevious(tail);
 		}
 	}
 	
