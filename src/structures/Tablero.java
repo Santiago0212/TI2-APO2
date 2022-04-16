@@ -1,10 +1,10 @@
 package structures;
 
-public class tablero {
+public class Tablero {
 	private NodeDE head;
 	private NodeDE tail;
 	
-	public tablero(){
+	public Tablero(){
 		head=null;
 		tail=null;
 		
@@ -100,6 +100,69 @@ public class tablero {
 		}
 		if(!current.equals(tail)) {
 			delete(current.getNext(),value);
+		}
+	}
+	
+	
+	
+	
+	
+	//Modificaciones sebasssss
+	public void printTablero(int colums) {
+		printTablero(tail,colums,0,0);
+	}
+	// si la direccion es 0 va de izquierda a derecha si es 1 va de derecha a izquierda
+	private void printTablero(NodeDE current,int colums,int contadorColums,int direction) {
+		if(current==null){
+			return;
+		}
+		if(current.isSeed()) {
+			System.out.print("[*] ");
+		}else {
+			System.out.print("["+current.getValue()+"] ");	
+		}
+		if(current.equals(head) && direction==0) {
+			return;
+		}
+		if((current.equals(search(head.getValue()-colums+1))) && direction==1){
+			return;
+		}
+		contadorColums=contadorColums+1;
+		if(contadorColums==colums) {
+			contadorColums=0;
+			System.out.println("");
+			if(direction==0) {
+				direction=1;
+			}else if(direction==1){
+				direction=0;
+			}
+		}
+		if(direction==0) {
+			if(!current.equals(head)) {
+				if(contadorColums==0) {
+					NodeDE aux=search(current.getValue()+colums-1);
+					current=aux;
+				}
+				printTablero(current.getPrevious(),colums,contadorColums,direction);
+			}
+		}else if(direction==1) {
+			if(!current.equals(head)) {
+				if(contadorColums==0) {
+					NodeDE aux=search(current.getValue()+colums+1);
+					if(aux!=null) {
+						current=aux.getNext();
+					}else {
+						aux=search(current.getValue()+colums);
+						current=aux;
+					}
+				}else {
+					NodeDE aux = current;
+					current=aux.getNext();
+				}
+				printTablero(current,colums,contadorColums,direction);
+			}else {
+				printTablero(current.getNext(),colums,contadorColums,direction);
+			}
 		}
 	}
 }
