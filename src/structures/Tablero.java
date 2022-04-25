@@ -46,7 +46,7 @@ public class Tablero {
 		return search(head, goal);
 	}
 	
-	public NodeDE search(NodeDE current, int goal) {
+	private NodeDE search(NodeDE current, int goal) {
 	
 		if(current.getValue() == goal) {
 			return current;
