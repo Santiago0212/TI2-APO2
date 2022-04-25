@@ -16,6 +16,7 @@ public class NodeDE {
 	private boolean seed;
 	private NodeDE portalDestination;
 	private int portalOrigin;
+	private String letra;
 	
 	
 	public NodeDE(int value, boolean seed, int portalOrigin) {
@@ -25,6 +26,17 @@ public class NodeDE {
 		this.player2 = null;
 		this.seed = seed;
 		this.portalOrigin = portalOrigin;
+		this.letra="";
+	}
+
+	
+	public String getLetra() {
+		return letra;
+	}
+
+
+	public void setLetra(String letra) {
+		this.letra = letra;
 	}
 
 
