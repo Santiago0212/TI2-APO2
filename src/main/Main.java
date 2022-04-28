@@ -11,6 +11,7 @@ import structures.Tablero;
 public class Main {
 
     Scanner sc=new Scanner(System.in);
+    Tablero tablero=new Tablero();
 
     public static void main(String[] args) {
         Main inicio = new Main();
@@ -48,7 +49,7 @@ public class Main {
         ArrayList<Integer> posPlayerList =new ArrayList<>();
         
 
-        Tablero tablero=new Tablero();
+        
 
         Random random = new Random();
         
@@ -145,9 +146,88 @@ public class Main {
         System.out.println(" ");
         tablero.printTableroEnlaces(columnsNumber);
         
-        
-        
-       
+        String player="Rick";
+        menu(player,columnsNumber);
+    }
+    private void menu(String player,int columnsNumber) {
+    	NodeDE nodePlayer1=tablero.searchPlayer1();
+    	NodeDE nodePlayer2=tablero.searchPlayer2();
+
+		
+    	System.out.println(" ");
+    	System.out.println("--------------------------------------------------");
+    	System.out.println(" ");
+    	System.out.println("Menu: ");
+    	System.out.println("Es el turno de "+player+"!. ¿Qué deseas hacer?\r\n"
+    			+ "1. Tirar dado\r\n"
+    			+ "2. Ver tablero\r\n"
+    			+ "3. Ver enlaces\r\n"
+    			+ "4. Marcador\r\n"
+    			+ "");
+    	int respuestaMenu=sc.nextInt();
+    	switch(respuestaMenu) {
+    	case 1:
+            Random random = new Random();
+    		int dados=(int) (Math.random()*12+2);
+    		
+    		System.out.println("Has sacado "+dados+" en los dados.");
+    		System.out.println("¿Hacia donde quieres dirigirte?\r\n"
+        			+ "1. Avanzar\r\n"
+        			+ "2. Retroceder\r\n");
+    		int respuestaMovimiento=sc.nextInt();
+    		
+    		
+    		//aqui va el movimiento
+    		switch(respuestaMovimiento) {
+        	case 1:
+        		if(player.equals("Rick")) {
+        			//LLama avanzar con rick
+        			player="Morty";
+        			tablero.avanzarRick(nodePlayer1,dados);
+        		}else {
+        			//llama a avanzar con morty
+        			player="Rick";
+        			tablero.avanzarMorty(nodePlayer2, dados);
+        		}
+        		break;
+        	case 2:
+        		if(player.equals("Rick")) {
+        			//LLama retroceder con rick
+        			player="Morty";
+        			tablero.retrocederRick(nodePlayer1, dados);
+        		}else {
+        			//llama a retroceder con morty
+        			player="Rick";
+        			tablero.retrocederMorty(nodePlayer2, dados);
+        		}
+        		//movimiento de retroceder
+        		break;
+    		}
+    		menu(player,columnsNumber);
+    		break;
+    	case 2:
+        	System.out.println("--------------------------------------------------");
+    		tablero.printTablero(columnsNumber);
+        	System.out.println(" ");
+        	System.out.println("--------------------------------------------------");
+            menu(player,columnsNumber);
+    		break;
+    	case 3:
+        	System.out.println("--------------------------------------------------");
+    		tablero.printTableroEnlaces(columnsNumber);
+        	System.out.println(" ");
+        	System.out.println("--------------------------------------------------");
+            menu(player,columnsNumber);
+    		break;
+    	case 4:
+
+    		Player player1=nodePlayer1.getPlayer1();
+    		Player player2=nodePlayer2.getPlayer2();
+    		System.out.println(player1.getName()+": "+player1.getRecolectedSeeds()+" semillas");
+    		System.out.println(player2.getName()+": "+player2.getRecolectedSeeds()+" semillas");
+    		menu(player,columnsNumber);
+    		break;
+    	}
     }
 
 }

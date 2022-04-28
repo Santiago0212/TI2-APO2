@@ -2,6 +2,8 @@ package structures;
 
 import java.util.ArrayList;
 
+import model.Player;
+
 public class Tablero {
 	private NodeDE head;
 	private NodeDE tail;
@@ -49,6 +51,7 @@ public class Tablero {
 	}
 	
 	private NodeDE search(NodeDE current, int goal) {
+
 	
 		if(current.getValue() == goal) {
 			return current;
@@ -59,6 +62,48 @@ public class Tablero {
 		}
 		
 		return search(current.getNext(),goal);
+
+	}
+	
+	public NodeDE searchPlayer1() {
+		return searchPlayer1(head, "Rick");
+	}
+	
+	private NodeDE searchPlayer1(NodeDE current,String name) {
+		if(current.getPlayer1()==null) {
+			return searchPlayer1(current.getNext(),name);
+		}
+	
+		if(current.getPlayer1().getName().equals(name)) {
+			return current;
+		} 
+		
+		if(current.equals(tail)) {
+			return null;
+		}
+		
+		return searchPlayer1(current.getNext(),name);
+
+	}
+	
+	public NodeDE searchPlayer2() {
+		return searchPlayer2(head, "Morty");
+	}
+	
+	private NodeDE searchPlayer2(NodeDE current,String name) {
+		if(current.getPlayer2()==null) {
+			return searchPlayer2(current.getNext(),name);
+		}
+	
+		if(current.getPlayer2().getName().equals(name)) {
+			return current;
+		} 
+		
+		if(current.equals(tail)) {
+			return null;
+		}
+		
+		return searchPlayer2(current.getNext(),name);
 
 	}
 	
@@ -232,6 +277,62 @@ public class Tablero {
 			}else {
 				printTableroEnlaces(current.getNext(),colums,contadorColums,direction);
 			}
+		}
+	}
+	
+	
+	//Empiezan metodos para los mnovimientos de los personajes
+	
+	public void avanzarRick(NodeDE player,int movimientos) {
+		Player playerAUX=player.getPlayer1();
+		player.setPlayer1(null);
+		player.getPrevious().setPlayer1(playerAUX);
+		movimientos=movimientos-1;
+		if(movimientos==0) {
+			NodeDE current=player.getPrevious();
+			if(current.isSeed()) {
+				current.getPlayer1().setRecolectedSeeds(current.getPlayer1().getRecolectedSeeds()+1);
+				current.setSeed(false);
+			}/*
+			if(current.getPortalDestination()!=null) {
+				
+			}*/
+			return;
+		}else {
+			avanzarRick(player.getPrevious(), movimientos);	
+		}
+	}
+	public void retrocederRick(NodeDE player,int movimientos) {
+		Player playerAUX=player.getPlayer1();
+		player.setPlayer1(null);
+		player.getNext().setPlayer1(playerAUX);
+		movimientos=movimientos-1;
+		if(movimientos==0) {
+			return;
+		}else {
+			retrocederRick(player.getNext(), movimientos);	
+		}
+	}
+	public void avanzarMorty(NodeDE player,int movimientos) {
+		Player playerAUX=player.getPlayer2();
+		player.setPlayer2(null);
+		player.getPrevious().setPlayer2(playerAUX);
+		movimientos=movimientos-1;
+		if(movimientos==0) {
+			return;
+		}else {
+			avanzarMorty(player.getPrevious(), movimientos);	
+		}
+	}
+	public void retrocederMorty(NodeDE player,int movimientos) {
+		Player playerAUX=player.getPlayer2();
+		player.setPlayer2(null);
+		player.getNext().setPlayer2(playerAUX);
+		movimientos=movimientos-1;
+		if(movimientos==0) {
+			return;
+		}else {
+			retrocederMorty(player.getNext(), movimientos);	
 		}
 	}
 }
