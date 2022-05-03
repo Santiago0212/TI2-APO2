@@ -1,7 +1,5 @@
 package structures;
 
-import java.util.ArrayList;
-
 import model.Player;
 
 public class Tablero {
@@ -293,10 +291,17 @@ public class Tablero {
 			if(current.isSeed()) {
 				current.getPlayer1().setRecolectedSeeds(current.getPlayer1().getRecolectedSeeds()+1);
 				current.setSeed(false);
-			}/*
+			}
 			if(current.getPortalDestination()!=null) {
-				
-			}*/
+				Player playerAUX2 = current.getPlayer1();
+				current.setPlayer1(null);
+				current.getPortalDestination().setPlayer1(playerAUX2);
+				current = current.getPortalDestination();
+				if(current.isSeed()) {
+					current.getPlayer1().setRecolectedSeeds(current.getPlayer1().getRecolectedSeeds()+1);
+					current.setSeed(false);
+				}
+			}
 			return;
 		}else {
 			avanzarRick(player.getPrevious(), movimientos);	
@@ -308,28 +313,75 @@ public class Tablero {
 		player.getNext().setPlayer1(playerAUX);
 		movimientos=movimientos-1;
 		if(movimientos==0) {
+			NodeDE current=player.getNext();
+			if(current.isSeed()) {
+				current.getPlayer1().setRecolectedSeeds(current.getPlayer1().getRecolectedSeeds()+1);
+				current.setSeed(false);
+			}
+			if(current.getPortalDestination()!=null) {
+				Player playerAUX2 = current.getPlayer1();
+				current.setPlayer1(null);
+				current.getPortalDestination().setPlayer1(playerAUX2);
+				current = current.getPortalDestination();
+				if(current.isSeed()) {
+					current.getPlayer1().setRecolectedSeeds(current.getPlayer1().getRecolectedSeeds()+1);
+					current.setSeed(false);
+				}
+			}
 			return;
 		}else {
 			retrocederRick(player.getNext(), movimientos);	
 		}
 	}
+	
 	public void avanzarMorty(NodeDE player,int movimientos) {
 		Player playerAUX=player.getPlayer2();
 		player.setPlayer2(null);
 		player.getPrevious().setPlayer2(playerAUX);
 		movimientos=movimientos-1;
 		if(movimientos==0) {
+			NodeDE current=player.getPrevious();
+			if(current.isSeed()) {
+				current.getPlayer2().setRecolectedSeeds(current.getPlayer2().getRecolectedSeeds()+1);
+				current.setSeed(false);
+			}
+			if(current.getPortalDestination()!=null) {
+				Player playerAUX2 = current.getPlayer2();
+				current.setPlayer2(null);
+				current.getPortalDestination().setPlayer2(playerAUX2);
+				current = current.getPortalDestination();
+				if(current.isSeed()) {
+					current.getPlayer2().setRecolectedSeeds(current.getPlayer2().getRecolectedSeeds()+1);
+					current.setSeed(false);
+				}
+			}
 			return;
 		}else {
 			avanzarMorty(player.getPrevious(), movimientos);	
 		}
 	}
+	
 	public void retrocederMorty(NodeDE player,int movimientos) {
 		Player playerAUX=player.getPlayer2();
 		player.setPlayer2(null);
 		player.getNext().setPlayer2(playerAUX);
 		movimientos=movimientos-1;
 		if(movimientos==0) {
+			NodeDE current=player.getNext();
+			if(current.isSeed()) {
+				current.getPlayer2().setRecolectedSeeds(current.getPlayer2().getRecolectedSeeds()+1);
+				current.setSeed(false);
+			}
+			if(current.getPortalDestination()!=null) {
+				Player playerAUX2 = current.getPlayer2();
+				current.setPlayer2(null);
+				current.getPortalDestination().setPlayer2(playerAUX2);
+				current = current.getPortalDestination();
+				if(current.isSeed()) {
+					current.getPlayer2().setRecolectedSeeds(current.getPlayer2().getRecolectedSeeds()+1);
+					current.setSeed(false);
+				}
+			}
 			return;
 		}else {
 			retrocederMorty(player.getNext(), movimientos);	
