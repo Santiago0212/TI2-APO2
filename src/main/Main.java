@@ -138,9 +138,10 @@ public class Main {
     	nodeAUX2.setPlayer2(morty);
     	
 
-        System.out.println("Las semillas han quedado ubicadas en las pocisiones: "+seedList);
+        System.out.println("\nLas semillas han quedado ubicadas en las pocisiones: "+seedList);
         System.out.println("Los portales han quedado ubicadas en las pocisiones: "+"\n"+"Origenes: "+portalOriginList+"\n"+"Destinos: "+portalDestinationList);
-        System.out.println("Los jugadores han quedado ubicados en las pocisiones: "+posPlayerList);
+        System.out.println("Los jugadores han quedado ubicados en las pocisiones: "+ posPlayerList + "\n");
+        System.out.println("--------------------------------------------------");
         tablero.printTablero(columnsNumber);
         System.out.println(" ");
         System.out.println(" ");
@@ -168,7 +169,7 @@ public class Main {
     	System.out.println("--------------------------------------------------");
     	System.out.println(" ");
     	System.out.println("Menu: ");
-    	System.out.println("Es el turno de "+player+"!. ¿Qué deseas hacer?\r\n"
+    	System.out.println("Es el turno de "+player+"! ¿Qué deseas hacer?\r\n"
     			+ "1. Tirar dado\r\n"
     			+ "2. Ver tablero\r\n"
     			+ "3. Ver enlaces\r\n"
@@ -181,9 +182,12 @@ public class Main {
     		int dados=(int) (Math.random()*12+2);
     		
     		System.out.println("Has sacado "+dados+" en los dados.");
-    		System.out.println("¿Hacia donde quieres dirigirte?\r\n"
-        			+ "1. Avanzar\r\n"
-        			+ "2. Retroceder\r\n");
+    		System.out.println("¿Hacia donde quieres dirigirte?\r\n");
+    		tablero.printTablero(columnsNumber); 
+    		System.out.println("\n\n1. Avanzar\r\n"
+        					+ "2. Retroceder\r\n");
+    		
+        			
     		int respuestaMovimiento=sc.nextInt();
     		
     		

@@ -162,15 +162,21 @@ public class Tablero {
 			return;
 		}
 		if(current.isSeed()) {
-			System.out.print("[*] ");
+			System.out.print("[ * ]  ");
 		}else if(current.getPlayer1()!=null && current.getPlayer2()==null){
-			System.out.print("[R] ");
+			System.out.print("[ R ]  ");
 		}else if(current.getPlayer2()!=null && current.getPlayer1()==null){
-			System.out.print("[M] ");
+			System.out.print("[ M ]  ");
 		}else if(current.getPlayer1()!=null && current.getPlayer2()!=null){
-			System.out.print("[R M] ");
+			System.out.print("[R M]  ");
 		}else {
-			System.out.print("["+current.getValue()+"] ");	
+			
+			if(current.getValue()>=10) {
+				System.out.print("[ "+current.getValue()+" ] ");
+			} else {
+				System.out.print("[ "+current.getValue()+" ]  ");	
+			}
+			
 		}
 		if(current.equals(head) && direction==0) {
 			return;
@@ -193,6 +199,7 @@ public class Tablero {
 				if(contadorColums==0) {
 					NodeDE aux=search(current.getValue()+colums-1);
 					current=aux;
+					
 				}
 				printTablero(current.getPrevious(),colums,contadorColums,direction);
 			}
@@ -228,9 +235,9 @@ public class Tablero {
 			return;
 		}
 		if(current.getLetra()!="") {
-			System.out.print("["+current.getLetra()+"] ");
+			System.out.print("[ "+current.getLetra()+" ] ");
 		}else{
-			System.out.print("[ ] ");	
+			System.out.print("[   ] ");	
 		}
 		
 		if(current.equals(head) && direction==0) {
