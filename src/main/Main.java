@@ -147,12 +147,22 @@ public class Main {
         tablero.printTableroEnlaces(columnsNumber);
         
         String player="Rick";
-        menu(player,columnsNumber);
+        menu(player,columnsNumber,seedsNumber);
     }
-    private void menu(String player,int columnsNumber) {
+    private void menu(String player,int columnsNumber, int seedsNumber) {
     	NodeDE nodePlayer1=tablero.searchPlayer1();
     	NodeDE nodePlayer2=tablero.searchPlayer2();
-
+    	
+    	
+    	int totalRecolected = nodePlayer1.getPlayer1().getRecolectedSeeds() + nodePlayer2.getPlayer2().getRecolectedSeeds();
+    	
+    	if(totalRecolected>=seedsNumber) {
+    		System.out.println("-----------------------------");
+    		System.out.println("Se recolectaron todas las semillas.");
+    		sc.next();
+    		System.exit(0);
+    	}
+    	
 		
     	System.out.println(" ");
     	System.out.println("--------------------------------------------------");
@@ -203,21 +213,21 @@ public class Main {
         		//movimiento de retroceder
         		break;
     		}
-    		menu(player,columnsNumber);
+    		menu(player,columnsNumber, seedsNumber);
     		break;
     	case 2:
         	System.out.println("--------------------------------------------------");
     		tablero.printTablero(columnsNumber);
         	System.out.println(" ");
         	System.out.println("--------------------------------------------------");
-            menu(player,columnsNumber);
+            menu(player,columnsNumber, seedsNumber);
     		break;
     	case 3:
         	System.out.println("--------------------------------------------------");
     		tablero.printTableroEnlaces(columnsNumber);
         	System.out.println(" ");
         	System.out.println("--------------------------------------------------");
-            menu(player,columnsNumber);
+            menu(player,columnsNumber, seedsNumber);
     		break;
     	case 4:
 
@@ -225,7 +235,7 @@ public class Main {
     		Player player2=nodePlayer2.getPlayer2();
     		System.out.println(player1.getName()+": "+player1.getRecolectedSeeds()+" semillas");
     		System.out.println(player2.getName()+": "+player2.getRecolectedSeeds()+" semillas");
-    		menu(player,columnsNumber);
+    		menu(player,columnsNumber, seedsNumber);
     		break;
     	}
     }
