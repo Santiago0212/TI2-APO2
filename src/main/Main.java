@@ -53,10 +53,6 @@ public class Main {
         ArrayList<Integer> portalOriginList =new ArrayList<>();
         ArrayList<Integer> posPlayerList =new ArrayList<>();
         
-
-        
-
-        Random random = new Random();
         
         while(seedList.size()<seedsNumber) {
 			int positionSeed=(int) (Math.random()*boxesNumber+1);
@@ -188,7 +184,6 @@ public class Main {
     	int respuestaMenu=sc.nextInt();
     	switch(respuestaMenu) {
     	case 1:
-            Random random = new Random();
     		int dados=(int) (Math.random()*12+2);
     		
     		System.out.println("Has sacado "+dados+" en los dados.");
@@ -273,8 +268,14 @@ public class Main {
 			changed = false;
 		}
 		System.out.println("\n--------------TOP CINCO--------------");
-		for(int i = 0; i<players.size(); i++) {
-			System.out.println((i+1)+". Jugador: "+players.get(i).getUserName()+"| Semillas recolectadas: "+players.get(i).getRecolectedSeeds());
+		
+		boolean finished = false;
+		for(int i = 0; i<players.size() && !finished; i++) {
+			if (i>=5) {
+				finished = true;
+			} else {
+				System.out.println((i+1)+". Jugador: "+players.get(i).getUserName()+"| Semillas recolectadas: "+players.get(i).getRecolectedSeeds());
+			}
 		}
     	
     }
