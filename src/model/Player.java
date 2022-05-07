@@ -1,6 +1,6 @@
 package model;
 
-public class Player {
+public class Player implements Comparable<Player>{
 	
 	 private String name;
 	 private String userName;
@@ -31,6 +31,17 @@ public class Player {
 	}
 	public void setRecolectedSeeds(int recolectedSeeds) {
 		this.recolectedSeeds = recolectedSeeds;
+	}
+
+	@Override
+	public int compareTo(Player o) {
+		if(this.recolectedSeeds == o.recolectedSeeds) {
+			return 0;
+		} else if(this.recolectedSeeds < o.recolectedSeeds) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 	 
 	 

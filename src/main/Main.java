@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import model.Player;
+import model.PlayerData;
 import structures.NodeDE;
 import structures.Tablero;
 
@@ -12,8 +13,12 @@ public class Main {
 
     Scanner sc=new Scanner(System.in);
     Tablero tablero=new Tablero();
-
+    
+    static PlayerData data;
+    
     public static void main(String[] args) {
+    	data = new PlayerData();
+    	data.loadJSON();
         Main inicio = new Main();
         inicio.inicio();
     }
@@ -150,6 +155,7 @@ public class Main {
         String player="Rick";
         menu(player,columnsNumber,seedsNumber);
     }
+    
     private void menu(String player,int columnsNumber, int seedsNumber) {
     	NodeDE nodePlayer1=tablero.searchPlayer1();
     	NodeDE nodePlayer2=tablero.searchPlayer2();
@@ -160,6 +166,10 @@ public class Main {
     	if(totalRecolected>=seedsNumber) {
     		System.out.println("-----------------------------");
     		System.out.println("Se recolectaron todas las semillas.");
+    		data.addPlayer(nodePlayer1.getPlayer1());
+    		data.addPlayer(nodePlayer2.getPlayer2());
+    		data.saveJSON();
+    		showTopFive();
     		sc.next();
     		System.exit(0);
     	}
@@ -242,6 +252,31 @@ public class Main {
     		menu(player,columnsNumber, seedsNumber);
     		break;
     	}
+    }
+    
+    public static void showTopFive() {
+    	ArrayList<Player> players = data.players;
+    	
+    	Player a, b;
+		boolean changed=false;
+		for(int i=0; i<players.size()-1; i++) {
+			a = players.get(i);
+			for(int j=(i+1); j<players.size() && !changed; j++) {
+				b = players.get(j);
+				if(a.compareTo(b)>0) {
+					players.remove(j);
+					players.add(i,b);
+					changed = true;
+					i--;
+				}
+			}
+			changed = false;
+		}
+		System.out.println("\n--------------TOP CINCO--------------");
+		for(int i = 0; i<players.size(); i++) {
+			System.out.println((i+1)+". Jugador: "+players.get(i).getUserName()+"| Semillas recolectadas: "+players.get(i).getRecolectedSeeds());
+		}
+    	
     }
 
 }
